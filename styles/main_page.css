@@ -154,7 +154,7 @@ a:hover {
   height: 70vh;
   align-items: center;
   justify-content: space-around;
-  padding: 0 40px;
+  /* padding: 0 40px; */
 }
 
 .second_wrapper > h3 {
@@ -164,6 +164,7 @@ a:hover {
   font-size: 46px;
   line-height: 65px;
   color: #000000;
+  padding-left: 60px;
 }
 .second_wrapper > img {
   flex: 0.5;
@@ -175,9 +176,14 @@ a:hover {
   background-color: #fbf2c8;
   display: flex;
   justify-content: space-around;
-  padding: 0 60px;
   height: 60vh;
   align-items: center;
+}
+.vision_img {
+  padding-left: 60px;
+}
+.mission_img {
+  padding-right: 60px;
 }
 
 .vision_wrapper > .image_wrapper {
@@ -225,7 +231,7 @@ a:hover {
   }
 
   .vision_wrapper {
-    padding: 0 40px;
+    padding: 0;
   }
 
   .vision_wrapper > .image_wrapper {
@@ -236,7 +242,7 @@ a:hover {
     border-radius: 5px;
   }
   .vision_wrapper > .vision_text {
-    padding: 0 20px;
+    padding: 0 10px;
     gap: 5px;
   }
 
@@ -257,7 +263,7 @@ a:hover {
 
   .second_wrapper {
     height: 250px;
-    padding: 40px 10px;
+    padding: 0;
   }
   .second_wrapper > h3 {
     font-size: 23px;
@@ -284,7 +290,7 @@ a:hover {
 
   .vision_wrapper {
     height: 300px;
-    padding: 20px 10px;
+    padding: 0;
   }
 
   .vision_wrapper > .image_wrapper {
@@ -305,6 +311,18 @@ a:hover {
   .vision_text > h4 {
     font-size: 10px;
     line-height: 15px;
+  }
+
+
+
+  .second_wrapper > h3 {
+    padding-left: 10px;
+  }
+  .vision_img {
+    padding-left: 10px;
+  }
+  .mission_img {
+    padding-right: 10px;
   }
 }
 
