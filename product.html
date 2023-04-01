@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+
+      * {
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+        list-style: none;
+        font-family: "Poppins", sans-serif;
+      }
+      nav {
+        background-color: #db9795;
+        width: 100%;
+        height: 80px;
+      }
+      label.logo {
+        color: white;
+        font-size: 35px;
+        line-height: 80px;
+        font-weight: bold;
+        padding-left: 100px;
+      }
+      nav ul {
+        float: right;
+        margin-right: 20px;
+      }
+      nav ul li {
+        display: inline-block;
+        line-height: 80px;
+        margin-left: 5px;
+      }
+      nav ul li a {
+        color: white;
+        font-size: 17px;
+        text-transform: uppercase;
+        padding: 7px 13px;
+        border-radius: 3px;
+        text-decoration: none;
+      }
+      a.active,
+      a:hover {
+        background-color: #0000002f;
+        transition: 0.5s;
+      }
+      .checkbtn {
+        font-size: 30px;
+        color: white;
+        float: right;
+        line-height: 80px;
+        margin-right: 40px;
+        cursor: pointer;
+        display: none;
+      }
+      #check {
+        display: none;
+      }
+      @media (max-width: 952px) {
+        label.logo {
+          font-size: 30px;
+          padding-left: 50px;
+        }
+        nav ul li a {
+          font-size: 16px;
+        }
+      }
+      @media (max-width: 715px) {
+        .checkbtn {
+          display: block;
+        }
+        ul {
+          position: fixed;
+          width: 100%;
+          height: 100vh;
+          background-color: #bd99b6;
+          top: 80px;
+          left: -100%;
+          text-align: center;
+          transition: all 0.5s;
+        }
+        nav ul li {
+          display: block;
+          margin: 50px 0;
+          line-height: 30px;
+        }
+        nav ul li a {
+          font-size: 20px;
+        }
+        a:hover,
+        a.active {
+          background: none;
+          color: #0082e6;
+        }
+        #check:checked ~ ul {
+          left: 0;
+        }
+      }
+
+      .products_header {
+        width: 100%;
+        background: url("./assets/images/cart.jpeg");
+        height: 200px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        display: flex;
+        justify-content: first baseline;
+        align-items: center;
+      }
+      .products_header > h1 {
+        color: #fff;
+        font-size: 40px;
+        padding-left: 40px;
+      }
+
+      .products_section {
+        width: 100%;
+        margin: 60px 0;
+      }
+      .products_section > h1 {
+        padding-left: 70px;
+        padding-bottom: 20px;
+        font-size: 35px;
+      }
+      .products_wrapper {
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        gap: 50px;
+      }
+      .product {
+        width: 280px;
+        height: 380px;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+        border-radius: 5px;
+      }
+
+      .product > img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 5px;
+      }
+      .product_details {
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
+        gap: 6px;
+      }
+      .product_details > h1 {
+        font-size: 18px;
+      }
+      .price > h2 {
+        font-size: 14px;
+      }
+      .price {
+        display: flex;
+        gap: 15px;
+      }
+      .fake_price {
+        color: #aeb0b1;
+        text-decoration: line-through;
+      }
+      .product_details > p {
+        font-size: 12px;
+      }
+      .product_details > button {
+        border: none;
+        background-color: #e78c89;
+        color: #fff;
+        padding: 2px;
+        border-radius: 2px;
+      }
+
+      footer {
+        width: 100%;
+        height: 100px;
+        background-color: #becbc0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      footer > h3 {
+        color: #000000;
+        font-size: 20px;
+      }
+
+      @media (max-width: 430px) {
+        .products_header {
+          height: 150px;
+        }
+        .products_header > h1 {
+          font-size: 30px;
+          padding-left: 10px;
+        }
+
+        .products_section {
+          margin: 30px 0;
+        }
+        .products_section > h1 {
+          padding-left: 70px;
+          padding-bottom: 20px;
+          font-size: 35px;
+        }
+        .products_wrapper {
+          display: flex;
+          justify-content: space-evenly;
+          flex-wrap: wrap;
+          gap: 50px;
+        }
+        .product {
+          width: 280px;
+          height: 380px;
+          box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.25);
+          border-radius: 5px;
+        }
+      }
+    </style>
+    <title>Product</title>
+  </head>
+  <body>
+    <nav>
+      <input type="checkbox" name="" id="check" />
+      <label for="check" class="checkbtn">
+        <!-- menu button svg -->
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="40"
+          height="40"
+          fill="#fff"
+          class="bi bi-list"
+          viewBox="0 0 16 16"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+          />
+        </svg>
+      </label>
+      <label class="logo">e Learn</label>
+      <ul>
+        <li><a href="./main-page.html">Home</a></li>
+        <li><a class="active" href="./product.html">Products</a></li>
+        <li><a href="./cart.html">Cart</a></li>
+      </ul>
+    </nav>
+
+    <header class="products_header">
+      <h1>Our Products</h1>
+    </header>
+
+    <main class="products_section">
+      <h1>Laptops</h1>
+      <div class="products_wrapper">
+        <div>
+          <div class="product">
+            <img src="./assets/images/asus.jpeg" alt="" />
+            <div class="product_details">
+              <h3>Lenovo Laptop</h3>
+              <div class="price">
+                <h2>£ 1899</h2>
+                <h2 class="fake_price">£ 2199</h2>
+              </div>
+              <p>Features Apple's M1 Pro or M1 Max chip</p>
+              <p>Has up to 10 hours of battery life</p>
+              <button
+                onclick="addToCart('Lenovo Laptop',1899,'./assets/images/asus.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="product">
+            <img src="./assets/images/lenovo.jpeg" alt="" />
+            <div class="product_details">
+              <h3>Asus Laptop</h3>
+              <div class="price">
+                <h2>£ 1799</h2>
+                <h2 class="fake_price">£ 1999</h2>
+              </div>
+              <p>Features Apple's M1 Pro or M1 Max chip</p>
+              <p>Has up to 10 hours of battery life</p>
+              <button
+                onclick="addToCart('Asus Laptop',1799,'./assets/images/lenovo.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="product">
+            <img src="./assets/images/macbook.jpeg" alt="" />
+            <div class="product_details">
+              <h3>MacBook Pro (2021 model)</h3>
+              <div class="price">
+                <h2>£ 1,985.38</h2>
+                <h2 class="fake_price">£ 1,985.38</h2>
+              </div>
+              <p>Features Apple's M1 Pro or M1 Max chip</p>
+              <p>Has up to 10 hours of battery life</p>
+              <button
+                onclick="addToCart('MacBook Pro (2021 model)',1985.38,'./assets/images/macbook.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <main class="products_section">
+      <h1>Book</h1>
+      <div class="products_wrapper">
+        <div>
+          <div class="product">
+            <img src="./assets/images/book1.jpeg" alt="" />
+            <div class="product_details">
+              <h3>"To Kill a Mockingbird" by Harper Lee</h3>
+              <div class="price">
+                <h2>£ 150</h2>
+                <h2 class="fake_price">£ 200</h2>
+              </div>
+              <p>Published in 1960</p>
+              <p>Set in the fictional town of Maycomb</p>
+              <button
+                onclick="addToCart('To Kill a Mockingbird by Harper Lee',150,'./assets/images/book1.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="product">
+            <img src="./assets/images/book2.jpeg" alt="" />
+            <div class="product_details">
+              <h3>"The Great Gatsby" by F. Scott Fitzgerald</h3>
+              <div class="price">
+                <h2>£ 199</h2>
+                <h2 class="fake_price">£ 299</h2>
+              </div>
+              <p>Published in 1925</p>
+              <p>Set in the Roaring Twenties in New York City</p>
+              <button
+                onclick="addToCart('The Great Gatsby by F. Scott Fitzgerald',199,'./assets/images/book2.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="product">
+            <img src="./assets/images/book3.jpeg" alt="" />
+            <div class="product_details">
+              <h3>"The Hunger Games" by Suzanne Collins</h3>
+              <div class="price">
+                <h2>£ 129</h2>
+                <h2 class="fake_price">£ 169</h2>
+              </div>
+              <p>Published in 2008</p>
+              <p>Set in a dystopian future in the nation of Panem</p>
+              <button
+                onclick="addToCart('The Hunger Games by Suzanne Collins',129,'./assets/images/book3.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <main class="products_section">
+      <h1>Gadgets</h1>
+      <div class="products_wrapper">
+        <div>
+          <div class="product">
+            <img src="./assets/images/pendrive.jpeg" alt="" />
+            <div class="product_details">
+              <h3>USB flash drive</h3>
+              <div class="price">
+                <h2>£ 99</h2>
+                <h2 class="fake_price">£ 139</h2>
+              </div>
+              <p>Uses flash memory to store data</p>
+              <p>
+                Can be formatted for use with different file systems, such as
+                FAT32 or NTFS
+              </p>
+              <button
+                onclick="addToCart('USB flash drive',99,'./assets/images/pendrive.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="product">
+            <img src="./assets/images/airpod.jpeg" alt="" />
+            <div class="product_details">
+              <h3>AirPods Pro</h3>
+              <div class="price">
+                <h2>£ 1,985.38</h2>
+                <h2 class="fake_price">£ 1,985.38</h2>
+              </div>
+              <p>Features active noise cancellation</p>
+              <p>Includes three sizes</p>
+              <button
+                onclick="addToCart('AirPods Pro',1985.38,'./assets/images/airpod.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <main class="products_section">
+      <h1>Cloths</h1>
+      <div class="products_wrapper">
+        <div>
+          <div class="product">
+            <img src="./assets/images/tshirt.jpeg" alt="" />
+            <div class="product_details">
+              <h3>T-shirt</h3>
+              <div class="price">
+                <h2>£ 150</h2>
+                <h2 class="fake_price">£ 200</h2>
+              </div>
+              <p>A lightweight, casual T-shirt</p>
+              <p>Available in a variety of colors, patterns, and designs</p>
+              <button
+                onclick="addToCart('T-shirt',150,'./assets/images/tshirt.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="product">
+            <img src="./assets/images/shirt.jpeg" alt="" />
+            <div class="product_details">
+              <h3>Shirt</h3>
+              <div class="price">
+                <h2>£ 199.99</h2>
+                <h2 class="fake_price">£ 249.00</h2>
+              </div>
+              <p>
+                A garment typically made of cotton, silk, or a blend of fabrics
+              </p>
+              <p>Can be short-sleeved or long-sleeved</p>
+              <button
+                onclick="addToCart('Shirt',199.99,'./assets/images/shirt.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="product">
+            <img src="./assets/images/pants.jpeg" alt="" />
+            <div class="product_details">
+              <h3>Pants</h3>
+              <div class="price">
+                <h2>£ 300</h2>
+                <h2 class="fake_price">£ 399</h2>
+              </div>
+              <p>A garment worn on the lower half of the body</p>
+              <p>Includes three sizes</p>
+              <button
+                onclick="addToCart('Pants',300,'./assets/images/pants.jpeg')"
+              >
+                Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <h3>Copyright © 2023 e Learn</h3>
+    </footer>
+
+    <script>
+      // function for add to cart
+      function addToCart(item, price, image) {
+        // Check if shopping cart exists in local storage
+        let cart = JSON.parse(localStorage.getItem("cartItems")) || [];
+
+        const id = crypto.randomUUID();
+
+        // Check if item already exists in shopping cart
+        let existingItem = cart.find((i) => i.item === item);
+
+        if (existingItem) {
+          // If item exists, increment the quantity
+          existingItem.quantity++;
+        } else {
+          // If item doesn't exist, add it to the cart
+          cart.push({
+            item: item,
+            price: price,
+            quantity: 1,
+            id,
+            image: image,
+          });
+        }
+
+        // Update shopping cart in local storage
+        localStorage.setItem("cartItems", JSON.stringify(cart));
+
+        // Confirm that item has been added to the cart
+        alert(`${item} has been added to your cart!`);
+      }
+    </script>
+  </body>
+</html>
