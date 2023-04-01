@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap");
+      p,
+      h1,
+      h2,
+      h3 {
+        margin: 0;
+      }
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+      * {
+        padding: 0;
+        margin: 0;
+        text-decoration: none;
+        list-style: none;
+      }
+
+      /* navbar */
+      nav {
+        background-color: #db9795;
+        width: 100%;
+        height: 80px;
+      }
+      label.logo {
+        color: white;
+        font-size: 35px;
+        line-height: 80px;
+        font-weight: bold;
+        padding-left: 100px;
+      }
+      nav ul {
+        float: right;
+        margin-right: 20px;
+      }
+      nav ul li {
+        display: inline-block;
+        line-height: 80px;
+        margin-left: 5px;
+      }
+      nav ul li a {
+        color: white;
+        font-size: 17px;
+        text-transform: uppercase;
+        padding: 7px 13px;
+        border-radius: 3px;
+        text-decoration: none;
+      }
+      a.active,
+      a:hover {
+        background-color: #00000051;
+        transition: 0.5s;
+      }
+      .checkbtn {
+        font-size: 30px;
+        color: white;
+        float: right;
+        line-height: 80px;
+        margin-right: 40px;
+        cursor: pointer;
+        display: none;
+      }
+      #check {
+        display: none;
+      }
+      @media (max-width: 952px) {
+        label.logo {
+          font-size: 30px;
+          padding-left: 50px;
+        }
+        nav ul li a {
+          font-size: 16px;
+        }
+      }
+      @media (max-width: 715px) {
+        .checkbtn {
+          display: block;
+        }
+        ul {
+          position: fixed;
+          width: 100%;
+          height: 100vh;
+          background-color: #bd99b6;
+          top: 80px;
+          left: -100%;
+          text-align: center;
+          transition: all 0.5s;
+        }
+        nav ul li {
+          display: block;
+          margin: 50px 0;
+          line-height: 30px;
+        }
+        nav ul li a {
+          font-size: 20px;
+        }
+        a:hover,
+        a.active {
+          background: none;
+          color: #0082e6;
+        }
+        #check:checked ~ ul {
+          left: 0;
+        }
+      }
+      .cart_wrapper {
+        background-color: #edebeb;
+      }
+      .cart_section {
+        width: 100%;
+        height: fit-content;
+        padding: 50px 0;
+        background-color: #edebeb;
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 40px;
+      }
+
+      .cart_card {
+        width: 300px;
+        height: 400px;
+        background-color: #fff;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        border-radius: 3px;
+      }
+
+      .cart_image {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        object-position: center;
+        border-radius: 3px;
+      }
+
+      .buttons {
+        width: 100%;
+        height: 10px;
+        background-color: #edebeb;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding-bottom: 40px;
+      }
+      .odr_btn {
+        padding: 10px 30px;
+        background-color: green;
+        border: none;
+        border-radius: 4px;
+        color: #ffff;
+      }
+      .clr_crt {
+        background-color: red;
+      }
+      footer {
+        width: 100%;
+        height: 100px;
+        background-color: #becbc0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      footer > h3 {
+        color: #000000;
+        font-size: 20px;
+      }
+      .no_items {
+        display: none;
+        font-size: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="cart_wrapper">
+      <nav>
+        <input type="checkbox" name="" id="check" />
+        <label for="check" class="checkbtn">
+          <!-- menu button svg -->
+
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            fill="#fff"
+            class="bi bi-list"
+            viewBox="0 0 16 16"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
+            />
+          </svg>
+        </label>
+        <label class="logo">e Learn</label>
+        <ul>
+          <li><a href="./main-page.html">Home</a></li>
+          <li><a href="./product.html">Products</a></li>
+          <li><a class="active" href="./cart.html">Cart</a></li>
+        </ul>
+      </nav>
+
+      <div class="cart_section">
+        <!-- cart products show here -->
+        <div class="no_items">Your cart is Empty</div>
+      </div>
+
+      <div id="buttons" class="buttons">
+        <button class="odr_btn" onclick="placeOrder()" id="cart_btn">
+          Place order
+        </button>
+        <button class="odr_btn clr_crt" onclick="clearCart()" id="cart_btn">
+          Clear Cart
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <h3>Copyright &copy; 2023 e Learn</h3>
+    </footer>
+
+    <script>
+      const orderBtn = document.querySelector("#cart_btn");
+      const wrapper = document.querySelector(".cart_section");
+      const buttons = document.querySelector("#buttons");
+      const cart_wrapper = document.querySelector(".cart_wrapper");
+      const no_items = document.querySelector(".no_items");
+
+      window.addEventListener("load", () => {
+        if (localStorage.getItem("cartItems") === null) {
+          buttons.style.display = "none";
+          cart_wrapper.style.height = "calc(100vh - 100px)";
+          no_items.style.display = "block";
+          return;
+        }
+        renderCart();
+        orderBtn.disabled = isDisabled();
+        orderBtn.style.opacity = isDisabled() ? 0.5 : 1;
+      });
+
+      function createCartCard(item) {
+        const cartWrapper = document.createElement("div");
+        cartWrapper.classList.add("cart_card");
+
+        const image = document.createElement("img");
+        image.src = item.image;
+        image.classList.add("cart_image");
+
+        const h3 = document.createElement("h3");
+        h3.innerHTML = item.item;
+
+        const qty = document.createElement("div");
+        qty.classList.add("qty");
+
+        const label = document.createElement("label");
+        label.innerHTML = "Quantity";
+
+        qty.appendChild(label);
+
+        const input = document.createElement("select");
+        input.innerText = item.quantity;
+        input.id = item.id;
+
+        input.addEventListener("change", changeQty);
+        for (i = 0; i < 11; i++) {
+          const option = document.createElement("option");
+          if (i === item.quantity) {
+            option.selected = true;
+          }
+          option.value = i;
+          option.innerHTML = i;
+          input.appendChild(option);
+        }
+
+        qty.appendChild(input);
+
+        const h4 = document.createElement("h4");
+        h4.innerHTML = `&euro; ${item.price * item.quantity}`;
+
+        cartWrapper.appendChild(image);
+        cartWrapper.appendChild(h3);
+        cartWrapper.appendChild(qty);
+        cartWrapper.appendChild(h4);
+
+        return cartWrapper;
+      }
+
+      function placeOrder() {
+        const cart = getCart();
+        // seleccting cart items whose quantity not equal to zero
+        let products = cart.filter((item) => item.quantity != 0);
+        localStorage.setItem("order", JSON.stringify(products));
+        window.location.href = "./payment.html";
+      }
+
+      function renderCart() {
+        wrapper.innerHTML = "";
+        let cart = getCart();
+        if (cart.length > 0) {
+          cart.forEach((item) => {
+            const card = createCartCard(item);
+            wrapper.appendChild(card);
+          });
+        }
+      }
+
+      function getCart() {
+        const json = localStorage.getItem("cartItems");
+        if (!json) {
+          return [];
+        }
+        return JSON.parse(json);
+      }
+
+      function saveCart(cart) {
+        localStorage.setItem("cartItems", JSON.stringify(cart));
+      }
+
+      function getTotalItems() {
+        let cart = getCart();
+
+        var itemNo = 0;
+        cart.forEach((item) => {
+          itemNo += item.quantity;
+        });
+
+        return itemNo;
+      }
+
+      function isDisabled() {
+        let totalItems = getTotalItems();
+        if (totalItems === 0) {
+          return true;
+        } else return false;
+      }
+
+      const clearCart = () => {
+        if (localStorage.getItem("cartItems") === null) {
+          orderBtn.disabled = isDisabled();
+          orderBtn.style.opacity = isDisabled() ? 0.5 : 1;
+          no_items.style.display = "block";
+          alert("There are no items in the cart");
+          return;
+        }
+        localStorage.clear();
+        buttons.style.display = "none";
+        no_items.style.display = "block";
+        cart_wrapper.style.height = "calc(100vh - 100px)";
+        orderBtn.style.opacity = isDisabled() ? 0.5 : 1;
+
+        orderBtn.disabled = isDisabled();
+        renderCart();
+      };
+
+      function changeQty(e) {
+        const id = e.target.id;
+        let cart = getCart();
+        let item = cart.find((item) => item.id === id);
+        item.quantity = Number(e.target.value);
+
+        saveCart(cart);
+        renderCart();
+
+        orderBtn.disabled = isDisabled();
+        orderBtn.style.opacity = isDisabled() ? 0.5 : 1;
+      }
+    </script>
+  </body>
+</html>
